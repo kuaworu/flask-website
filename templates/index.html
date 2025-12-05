@@ -2,196 +2,291 @@
 
 {% block head %}
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: "Verdana", sans-serif;
+  background: #FFF8FF;
+  color: #4B0082;
+}
 
-  section {
-    min-height: 100vh;
-    height: auto;
-    padding: 60px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    box-sizing: border-box;
-  }
+section {
+  min-height: 100vh;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  text-align: center;
+}
 
-  section:first-of-type {
-    padding-top: 1500px;
-  }
+#first-section {
+  padding-top: 900px;
+  padding-bottom: 100px;
+}
+#first-section img {
+  margin: 40px 0 50px 0;
+}
 
-  #second {
-    padding-top: 1300px;
-    opacity: 0;
-    transform: translateY(120px);
-    transition: opacity 1s ease, transform 1s ease;
-  }
+.hidden-section {
+  opacity: 0;
+  transform: translateY(-80px);
+  height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-  #second.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+h1, h2 {
+  color: #4B0082;
+}
+h1 { font-size: 2.5rem; margin-bottom: 15px; }
+p { font-size: 1.2rem; max-width: 850px; }
 
-  h1 {
-    font-size: 3rem;
-    text-align: center;
-  }
+.menu-box {
+  background: linear-gradient(135deg, #F7E6FF, #FFE6F2);
+  padding: 25px 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.menu-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.menu-box select {
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.2rem;
+  background: #FFF0FA;
+  color: #4B0082;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+}
 
-  p {
-    font-size: 1.5rem;
-    text-align: center;
-    max-width: 800px;
-  }
+.content-block {
+  display: none;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 20px;
+  text-align: left;
+}
+.content-block.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  video {
-    max-width: 80%;
-    border-radius: 15px;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+th, td { padding: 14px; }
+th { background-color: #EBD6FF; text-align: left; }
+tr:nth-child(even) { background-color: #FFF1F9; }
+tr:nth-child(odd) { background-color: #F6E8FF; }
+
+.swipe-gallery {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  margin-top: 15px;
+  padding-bottom: 10px;
+}
+.swipe-gallery img, .swipe-gallery video {
+  width: 150px;
+  height: auto;
+  border-radius: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.swipe-gallery img:hover, .swipe-gallery video:hover { transform: scale(1.05); }
+
+video { width: 100%; border-radius: 16px; margin-top: 25px; }
+
+.notes {
+  background: linear-gradient(135deg, #EEE4FF, #FFE8F3);
+  padding: 25px;
+  border-radius: 16px;
+  margin-top: 25px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  font-size: 1.1rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.notes.show { opacity: 1; transform: translateY(0); }
+
+.art-block {
+  background: linear-gradient(135deg, #FFE0F4, #F3E0FF);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  margin-top: 20px;
+  line-height: 1.5;
+  font-size: 1.1rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.art-block.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 600px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  p, .menu-box select, .art-block, .notes { font-size: 1rem; }
+  table th, table td { font-size: 0.95rem; }
+  .swipe-gallery img, .swipe-gallery video { width: 120px; }
+}
 </style>
 {% endblock %}
 
 {% block body %}
 
-<section>
-    <h1>heyy!!! fyoxa’s portfolio website is here! :3</h1>
-
-    <img src="{{ url_for('static', filename='hellokitty.gif') }}"
-         alt="Hello Kitty"
-         style="width:200px; margin-bottom:20px;">
-
-    <p>♡ i’m a video creator, i'm working with after effects and alight motion ♡</p>
-
-    <a href="#second"
-       style="margin-top:20px; font-size:1.2rem; color:#4B0082;">
-       ↓ scroll down ↓
-    </a>
+<section id="first-section">
+  <h1>Привет! Я fyoxa, добро пожаловать на мой сайт-портфолио! :3</h1>
+  <img src="{{ url_for('static', filename='hellokitty.gif') }}" style="width:180px; margin:40px 0 50px 0;">
+  <p>Я занимаюсь видеомонтажом и анимацией в After Effects, Alight Motion, красивые эффекты и переходы. Также я увлекаюсь рисованием!</p>
+  <a href="#second" style="margin-top:20px; font-size:1.2rem; color:#4B0082;">↓ Листай вниз ↓</a>
 </section>
 
 <section id="second">
-    <h1>Commissions and My Works!!</h1>
+  <div class="menu-box">
+    <h2>Что вас интересует?</h2>
+    <select id="selector">
+      <option value="" disabled selected>Выберите категорию</option>
+      <option value="edits">Коммишены на эдиты</option>
+      <option value="art">Коммишены на арты</option>
+    </select>
+  </div>
 
-    <p>
-        Price list<br><br>
+<div id="edits-block" class="content-block">
+    <h1>Эдиты</h1>
+    <div class="swipe-gallery">
+        <video controls><source src="{{ url_for('static', filename='edits/1.mp4') }}" type="video/mp4"></video>
+        <video controls><source src="{{ url_for('static', filename='edits/2.mp4') }}" type="video/mp4"></video>
+        <video controls><source src="{{ url_for('static', filename='edits/3.mp4') }}" type="video/mp4"></video>
+        <video controls><source src="{{ url_for('static', filename='edits/4.mp4') }}" type="video/mp4"></video>
+        <video controls><source src="{{ url_for('static', filename='edits/5.mp4') }}" type="video/mp4"></video>
+    </div>
 
+    <div class="notes show">
+      <b>Важно знать:</b><br>
+      • Цена и дедлайн может меняться в зависимости от сложности работы (1-3 дня).<br>
+      • Беру предоплату 50/100%<br>
+      • Оплата через украинский или испанский банк, или донат.<br><br>
 
-<table id="priceTable" style="width:80%; margin:auto; border-collapse: collapse; font-size:1.2rem; border-radius:10px; overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.1); opacity:0; transform:translateY(50px); transition: opacity 1s ease, transform 1s ease;">
-<thead>
-<tr style="background-color:#E6E6FA;">
-<th style="padding:12px; text-align:left;">Service</th>
-<th style="padding:12px; text-align:right;">Price</th>
-</tr>
-</thead>
-<tbody>
-<tr style="background-color:#FFF0F6; transition: background 0.3s;">
-<td style="padding:12px;">Animating artworks with transitions, effects, and color correction</td>
-<td style="padding:12px; text-align:right;">15-20€</td>
-</tr>
-<tr style="background-color:#E6E6FA; transition: background 0.3s;">
-<td style="padding:12px;">Transitions with effects and color correction</td>
-<td style="padding:12px; text-align:right;">8€</td>
-</tr>
-<tr style="background-color:#FFF0F6; transition: background 0.3s;">
-<td style="padding:12px;">Video edit with advanced transitions, effects, and color correction</td>
-<td style="padding:12px; text-align:right;">5€</td>
-</tr>
-<tr style="background-color:#E6E6FA; transition: background 0.3s;">
-<td style="padding:12px;">Character animation with velocity and effects (optional 3D camera animation)</td>
-<td style="padding:12px; text-align:right;">10€</td>
-</tr>
-</tbody>
-</table>
+      <b>Новая анкета для заполнения комментария:</b><br>
+      1. Видео готовой работы (очень желательно) 🎀<br>
+      2. Какой вариант эдита вы заказали? 🎀 (1-4/свой вариант)<br>
+      3. Впечатление о работе и о редакторе 🎀<br>
+      4. Может ли редактор по желанию публиковать заказанную вами работу? 🎀 (с отметкой вас)<br>
+      5. Цена данной работы и способ оплаты 🎀 (например донатом)
+    </div>
 
+    <table>
+      <tr><th>Услуга</th><th>Цена</th></tr>
+      <tr><td>Анимация артов с эффектами и цветокоррекцией</td><td>15–20€</td></tr>
+      <tr><td>Переходы с эффектами и цветокоррекцией</td><td>8€</td></tr>
+      <tr><td>Монтаж видео с продвинутыми переходами и эффектами</td><td>5€</td></tr>
+      <tr><td>Анимация персонажей с эффектами и опциональной 3D камерой</td><td>10€</td></tr>
+    </table>
 
-<script>
-const table = document.getElementById('priceTable');
-const tableObserver = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if(entry.isIntersecting){
-table.style.opacity = '1';
-table.style.transform = 'translateY(0)';
-}
-});
-}, { threshold: 0.5 });
-
-
-tableObserver.observe(table);
-</script>
-
-
-<br><br>
-<div id="notes" style="width:80%; margin:auto; padding:20px; background: linear-gradient(135deg, #E6E6FA, #FFF0F6); border-radius:12px; color:#4B0082; font-size:1.2rem; line-height:1.6; box-shadow:0 4px 12px rgba(0,0,0,0.08); opacity:0; transform:translateY(50px); transition: opacity 1s ease, transform 1s ease;">
-  <p>Notes:</p>
-  <ul style="margin:0; padding-left:20px;">
-    <li>Price and deadline may vary depending on project complexity (1-3 days)</li>
-    <li>I require 50/100% advance payment</li>
-    <li>Payment via Ukrainian or Spanish bank (if not possible – donations accepted)</li>
-    <li>Reviews can be left in comments under the post 🤩</li>
-  </ul>
+    <p style="margin-top:15px;">Заказать коммишку можно написав мне в лс! <a href="https://t.me/m/SGLiMaGbZjgy" target="_blank">здесь :3</a></p>
 </div>
 
 
+  <div id="art-block" class="content-block">
+    <h1>Коммишены на арты</h1>
+    <div class="swipe-gallery">
+        <img src="{{ url_for('static', filename='arts/1.jpg') }}" alt="Art 1">
+        <img src="{{ url_for('static', filename='arts/2.jpg') }}" alt="Art 2">
+        <img src="{{ url_for('static', filename='arts/3.jpg') }}" alt="Art 3">
+        <img src="{{ url_for('static', filename='arts/4.jpg') }}" alt="Art 4">
+        <img src="{{ url_for('static', filename='arts/5.jpg') }}" alt="Art 5">
+    </div>
 
-<script>
-  const notes = document.getElementById('notes');
+    <div class="notes show">
+      <b>Важно знать:</b><br>
+      • Цена может меняться в зависимости от сложности работы.<br>
+      • Я не рисую: стариков и детей.<br>
+      • Беру предоплату 50/100%<br>
+      • Оплата через украинский или испанский банк, или донат.<br><br>
 
-  const notesObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        notes.style.opacity = '1';
-        notes.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.5 });
+      😉<b>За договорную цену могу:</b><br>
+      • Отправить рисунок почтой, если это традиш / отправить бокс с рисунками и мерчем на определённый фандом.<br>
+      • Нарисовать стикерпак.<br>
+      • Нарисовать и анимировать коммишку.<br>
+      • Нарисовать ОС под ваше описание.<br>
+      • Нарисовать фурри, гуро или что-то на подобии этого.
+    </div>
 
-  notesObserver.observe(notes);
-</script>
-<br><br>
-<h2 id="videoSample" style="text-align:center; color:#4B0082; opacity:0; transform:translateY(50px); transition: opacity 1s ease, transform 1s ease;">Video Samples</h2>
+    <table>
+      <tr><th>Услуга</th><th>Цена</th></tr>
+      <tr><td>Хед (портрет головы)</td><td>4€</td></tr>
+      <tr><td>Халф (полуфигурка)</td><td>7€</td></tr>
+      <tr><td>Фулл (полная фигура)</td><td>10€</td></tr>
+      <tr><td>Скетч</td><td>по договорённости</td></tr>
+    </table>
 
-<script>
-  const videoSample = document.getElementById('videoSample');
+    <p style="margin-top:15px;">Заказать коммишку можно написав мне в лс! <a href="https://t.me/m/SGLiMaGbZjgy" target="_blank">здесь :3</a></p>
+</div>
 
-  const videoObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        videoSample.style.opacity = '1';
-        videoSample.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.5 });
-
-  videoObserver.observe(videoSample);
-</script>
-
-
-    <video controls>
-        <source src="{{ url_for('static', filename='fyoxa.mp4') }}" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-    </video>
-
-    <p>For questions, please write to
-        <a href="https://t.me/m/SGLiMaGbZjgy" target="_blank">Telegram</a>
-    </p>
 </section>
 
 <script>
-  const second = document.querySelector('#second');
+const selector = document.getElementById("selector");
+const editsBlock = document.getElementById("edits-block");
+const artBlock = document.getElementById("art-block");
+const menuBox = document.querySelector(".menu-box");
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-          second.classList.add('show');
-      }
-    });
-  }, {
-    threshold: 0.5
+const secondSectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      menuBox.classList.add("show");
+    }
   });
+}, { threshold: 0.3 });
 
-  observer.observe(second);
+secondSectionObserver.observe(document.getElementById("second"));
+
+selector.addEventListener("change", () => {
+    document.getElementById("first-section").classList.add("hidden-section");
+
+    [editsBlock, artBlock].forEach(block => {
+        block.classList.remove("show");
+        block.style.display = "none";
+    });
+
+    if (selector.value === "edits") {
+        editsBlock.style.display = "block";
+        setTimeout(() => editsBlock.classList.add("show"), 50);
+    }
+
+    if (selector.value === "art") {
+        artBlock.style.display = "block";
+        setTimeout(() => artBlock.classList.add("show"), 50);
+    }
+
+    setTimeout(() => {
+        document.getElementById("second").scrollIntoView({ behavior: "smooth" });
+    }, 300);
+});
 </script>
 
 {% endblock %}
