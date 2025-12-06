@@ -9,6 +9,20 @@ body {
   font-family: "Verdana", sans-serif;
   background: #FFF8FF;
   color: #4B0082;
+  overflow-x: hidden;
+}
+
+
+body.home {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+
+
+body:not(.home) {
+  max-width: 1500px;
+  margin: 0 auto;
 }
 
 section {
@@ -16,18 +30,32 @@ section {
   padding: 60px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
   text-align: center;
 }
 
 #first-section {
-  padding-top: 900px;
-  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; 
+  padding-bottom: 60px;
 }
+
+
+.first-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 600px; 
+}
+
 #first-section img {
-  margin: 40px 0 50px 0;
+  width: 180px;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .hidden-section {
@@ -39,26 +67,26 @@ section {
   pointer-events: none;
 }
 
-h1, h2 {
-  color: #4B0082;
-}
+h1, h2 { color: #4B0082; }
 h1 { font-size: 2.5rem; margin-bottom: 15px; }
 p { font-size: 1.2rem; max-width: 850px; }
 
+
+/*меню пк*/
 .menu-box {
   background: linear-gradient(135deg, #F7E6FF, #FFE6F2);
   padding: 25px 30px;
   border-radius: 20px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  margin-top: 250px; 
   margin-bottom: 40px;
   opacity: 0;
   transform: translateY(-40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
-.menu-box.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+
+
+.menu-box.show { opacity: 1; transform: translateY(0); }
 .menu-box select {
   padding: 14px 20px;
   border-radius: 12px;
@@ -86,6 +114,7 @@ p { font-size: 1.2rem; max-width: 850px; }
   transform: translateY(0);
 }
 
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -106,12 +135,14 @@ tr:nth-child(odd) { background-color: #F6E8FF; }
   gap: 12px;
   margin-top: 15px;
   padding-bottom: 10px;
+  flex-wrap: nowrap;
 }
 .swipe-gallery img, .swipe-gallery video {
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
   height: auto;
   border-radius: 12px;
-  flex-shrink: 0;
+  flex-shrink: 1;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s;
 }
@@ -144,42 +175,47 @@ video { width: 100%; border-radius: 16px; margin-top: 25px; }
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
+
 .art-block.show { opacity: 1; transform: translateY(0); }
 
 
+
+/*меню для телефа*/
 @media (max-width: 600px) {
-  body {
-    transform: scale(0.608) translateY(5%);
-    transform-origin: top 82%;
-    overflow-x: hidden;
-  }
-  h1 { font-size: 1.875rem; }
-  h2 { font-size: 1.125rem; }
-  p { font-size: 0.9rem; max-width: 637px; }
-  section { padding: 45px 15px; }
-  #first-section { padding-top: 100px; padding-bottom: 60px; }
-  #first-section img { width: 120px; margin: 20px 0 30px 0; }
-  .menu-box { padding: 18px 22px; }
-  .swipe-gallery img, .swipe-gallery video { width: 112px; }
-  .content-block { margin-top: 15px; }
-  table th, table td { padding: 10px; font-size: 0.825rem; }
-  .notes, .art-block { padding: 18px; }
+  body { font-size: 10px; }
+  section { padding: 35px 15px; }
+  h1 { font-size: 1.9rem; line-height: 1.2; }
+  h2 { font-size: 1.35rem; line-height: 1.3; }
+  p, li, a, span { font-size: 1rem; line-height: 1.45; }
+  #first-section { padding-bottom: 60px; }
+  .first-content { padding-top: 500px; }
+  #first-section img { width: 100px; }
+  .swipe-gallery img, .swipe-gallery video { max-width: 100px; flex-shrink: 1; }
+  .menu-box { padding: 18px 22px; font-size: 1rem; margin-bottom: 15px; margin-top: 200px; }
+  .box, .card { padding: 20px; margin-bottom: 20px; }
+  table td, table th { padding: 10px; }
+  img { max-width: 100%; height: auto; display: block; margin: 15px auto; }
+  video { max-width: 100%; height: auto; border-radius: 16px; }
+  ul { padding-left: 18px; }
 }
 
-
-
-
 </style>
+
+
 {% endblock %}
 
 {% block body %}
 
 <section id="first-section">
-  <h1>Привет! Я fyoxa, добро пожаловать на мой сайт-портфолио! :3</h1>
-  <img src="{{ url_for('static', filename='hellokitty.gif') }}" style="width:180px; margin:40px 0 50px 0;">
+  <div class="first-content">
+    <h1>Привет! Я fyoxa, добро пожаловать на мой сайт-портфолио! :3</h1>
+    <img src="{{ url_for('static', filename='hellokitty.gif') }}">
+  </div>
   <p>Я занимаюсь видеомонтажом и анимацией в After Effects, Alight Motion, красивые эффекты и переходы. Также я увлекаюсь рисованием!</p>
   <a href="#second" style="margin-top:20px; font-size:1.2rem; color:#4B0082;">↓ Листай вниз ↓</a>
 </section>
+
 
 <section id="second">
   <div class="menu-box">
@@ -191,7 +227,7 @@ video { width: 100%; border-radius: 16px; margin-top: 25px; }
     </select>
   </div>
 
-<div id="edits-block" class="content-block">
+  <div id="edits-block" class="content-block">
     <h1>Эдиты</h1>
     <div class="swipe-gallery">
         <video controls><source src="{{ url_for('static', filename='edits/1.mp4') }}" type="video/mp4"></video>
@@ -200,6 +236,7 @@ video { width: 100%; border-radius: 16px; margin-top: 25px; }
         <video controls><source src="{{ url_for('static', filename='edits/4.mp4') }}" type="video/mp4"></video>
         <video controls><source src="{{ url_for('static', filename='edits/5.mp4') }}" type="video/mp4"></video>
     </div>
+
 
     <div class="notes show">
       <b>Важно знать:</b><br>
@@ -224,7 +261,8 @@ video { width: 100%; border-radius: 16px; margin-top: 25px; }
     </table>
 
     <p style="margin-top:15px;">Заказать коммишку можно написав мне в лс! <a href="https://t.me/m/SGLiMaGbZjgy" target="_blank">здесь :3</a></p>
-</div>
+  </div>
+
 
 
   <div id="art-block" class="content-block">
@@ -252,6 +290,7 @@ video { width: 100%; border-radius: 16px; margin-top: 25px; }
       • Нарисовать фурри, гуро или что-то на подобии этого.
     </div>
 
+
     <table>
       <tr><th>Услуга</th><th>Цена</th></tr>
       <tr><td>Хед (портрет головы)</td><td>4€</td></tr>
@@ -261,8 +300,7 @@ video { width: 100%; border-radius: 16px; margin-top: 25px; }
     </table>
 
     <p style="margin-top:15px;">Заказать коммишку можно написав мне в лс! <a href="https://t.me/m/SGLiMaGbZjgy" target="_blank">здесь :3</a></p>
-</div>
-
+  </div>
 </section>
 
 <script>
